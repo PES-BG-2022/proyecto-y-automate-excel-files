@@ -8,6 +8,8 @@ from openpyxl import workbook
 from openpyxl.styles import Font
 from openpyxl.chart import BarChart, LineChart, Reference
 import string
+import matplotlib
+import matplotlib.pyplot as plt
 
 
 # ----------------------------------------------
@@ -48,6 +50,7 @@ histograma = salida.hist("2020")
 est_descrip = salida.describe()
 est_descrip_1 = est_descrip.round(2)
 
+
 # ----------------------------------------------
 # Generando salida Microsoft Excel Automatizado
 # ----------------------------------------------
@@ -71,14 +74,11 @@ def automatizar_excel(nombre_archivo):
 
     salida.to_excel(writer, "CPI_Reporte", startcol=1, startrow=1, index=False)    
     
-    est_descrip_1.to_excel(writer, "CPI_Reporte_Stats", startcol=1, startrow=1, index=True)
+    est_descrip_1.to_excel(writer, "CPI_Reporte_Stats", startcol=1, startrow=1, index=True)    
 
-    grafica_1.to_excel(writer, "datos_graf", startcol=0, startrow=0, index=True)         
+    grafica_1.to_excel(writer, "datos_graf", startcol=0, startrow=0, index=True)
 
     writer.save()
-
-    wb = load_workbook(f"CPI_{nombre}.xlsx")
-    pestaña = wb["datos_graf"].sheet_state = 'hidden'   
 
     return
 
@@ -97,6 +97,7 @@ def ocutlar(nombre_archivo):
     return
 
 ocutlar(nombre)
+
 
 # ----------------------------------------------
 
