@@ -45,8 +45,7 @@ salida
 # Generar Estadística Descriptiva
 # ----------------------------------------------
 est_descrip = salida.describe()
-est_descrip.round(2)
-
+est_descrip_1 = est_descrip.round(2)
 
 
 # ----------------------------------------------
@@ -72,7 +71,7 @@ def automatizar_excel(nombre_archivo):
 
     salida.to_excel(writer, "CPI_Reporte", startcol=1, startrow=1, index=False)    
     
-    est_descrip.to_excel(writer, "CPI_Reporte_Stats", startcol=1, startrow=1, index=True)
+    est_descrip_1.to_excel(writer, "CPI_Reporte_Stats", startcol=1, startrow=1, index=True)
 
     grafica_1.to_excel(writer, "datos_graf", startcol=0, startrow=0, index=True)         
 
