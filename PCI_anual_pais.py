@@ -26,7 +26,6 @@ df = pd.read_excel("https://api.worldbank.org/v2/es/indicator/FP.CPI.TOTL.ZG?dow
 df_selec_anio = df.drop(columns=['Country Code', 'Indicator Name', 'Indicator Code', '1960', '1961', '1962', '1963', '1964', '1965', '1966', '1967', '1968', '1969', '1970', '1971', '1972', '1973', '1974', '1975', '1976', '1977', '1978', '1979', '1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987', '1988', '1989', '1990', '1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999'])
 anio = df_selec_anio.round(2)
 
-
 # ----------------------------------------------
 # Filtro 2: Información a considerar
 # ----------------------------------------------
@@ -38,26 +37,19 @@ lista_paises = ['Estados Unidos', 'Canadá', 'México', 'Costa Rica', 'Guatemala
 ]
 filtro = df_selec_pais["Country Name"].apply(lambda pais: pais in lista_paises)
 salida = df_selec_pais.loc[filtro, :]
-salida.style.set_table_styles([{"selector":"thead","props":"background-color:black; color:white;"},
-                                {"selector":"th.row_heading", "props": [("background-color", "gray"), ("color", "white"),
-                                          ("border", "3px solid black"), ("font-size", "1.2rem"), ("font-style", "italic")]},]).set_precision(2)
 
+salida
 
-
+histograma = salida.hist("2020")
 
 # ----------------------------------------------
 # Generar Estadística Descriptiva
 # ----------------------------------------------
 est_descrip = salida.describe()
-est_descrip.style.set_table_styles([{"selector":"thead","props":"background-color:black; color:white;"},
-                                {"selector":"th.row_heading", "props": [("background-color", "gray"), ("color", "white"),
-                                          ("border", "3px solid black"), ("font-size", "1.2rem"), ("font-style", "italic")]},]).set_precision(2)
-
-
-
+est_descrip_1 = est_descrip.round(2)
 
 # ----------------------------------------------
-# Generando salido Microsoft Excel Automatizado
+# Generando salida Microsoft Excel Automatizado
 # ----------------------------------------------
 
 grafica_1 = salida.T
@@ -134,8 +126,12 @@ def graficar():
     barchart.height = 15
     barchart.width = 20
 
-    pestaña_2["B23"] = "Series de Tiempo"
-    pestaña_2["B23"].font = Font("Arial", bold=True, size= 20)
+    pestaña_2["B1"] = "Serie histórica CPI por país"
+    pestaña_2["B1"].font = Font("Arial", bold=True, size= 20)
+
+
+    pestaña_2["B22"] = "Series de Tiempo"
+    pestaña_2["B22"].font = Font("Arial", bold=True, size= 20)
     
     wb.save(f"CPI_{nombre}.xlsx")
 
@@ -144,5 +140,17 @@ graficar()
 
 
 # ----------------------------------------------
-# --
+
+def titulos_stas():
+    
+    wb = load_workbook(f"CPI_{nombre}.xlsx")
+    pestaña = wb["CPI_Reporte_Stats"] 
+    
+    pestaña["B1"] = "Estadísticas descriptivas de la serie CPI 2010-2020"
+    pestaña["B1"].font = Font("Arial", bold=True, size= 20)
+
+    wb.save(f"CPI_{nombre}.xlsx")
+
+titulos_stas()
+
 # ----------------------------------------------
