@@ -125,6 +125,9 @@ def graficar():
     barchart.style = 2
     barchart.height = 15
     barchart.width = 20
+
+    pestaña_2["B23"] = "Series de Tiempo"
+    pestaña_2["B23"].font = Font("Arial", bold=True, size= 20)
     
     wb.save(f"CPI_{nombre}.xlsx")
 
