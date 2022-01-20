@@ -38,14 +38,22 @@ lista_paises = ['Estados Unidos', 'Canadá', 'México', 'Costa Rica', 'Guatemala
 ]
 filtro = df_selec_pais["Country Name"].apply(lambda pais: pais in lista_paises)
 salida = df_selec_pais.loc[filtro, :]
-salida
+salida.style.set_table_styles([{"selector":"thead","props":"background-color:black; color:white;"},
+                                {"selector":"th.row_heading", "props": [("background-color", "gray"), ("color", "white"),
+                                          ("border", "3px solid black"), ("font-size", "1.2rem"), ("font-style", "italic")]},]).set_precision(2)
+
+
 
 
 # ----------------------------------------------
 # Generar Estadística Descriptiva
 # ----------------------------------------------
 est_descrip = salida.describe()
-est_descrip_1 = est_descrip.round(2)
+est_descrip.style.set_table_styles([{"selector":"thead","props":"background-color:black; color:white;"},
+                                {"selector":"th.row_heading", "props": [("background-color", "gray"), ("color", "white"),
+                                          ("border", "3px solid black"), ("font-size", "1.2rem"), ("font-style", "italic")]},]).set_precision(2)
+
+
 
 
 # ----------------------------------------------
